@@ -3,6 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
 
 interface Course {
@@ -90,6 +93,7 @@ const Index = () => {
   const [languageFilter, setLanguageFilter] = useState('');
   const [showContacts, setShowContacts] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const languages = ['Все', 'JavaScript', 'React', 'Python', 'Node.js'];
   
@@ -504,7 +508,10 @@ const Index = () => {
                 </Button>
               </div>
             </div>
-            <Button className="hidden sm:flex">
+            <Button 
+              className="hidden sm:flex"
+              onClick={() => setShowAuthModal(true)}
+            >
               <Icon name="User" size={16} className="mr-2" />
               Войти
             </Button>
@@ -647,6 +654,150 @@ const Index = () => {
           <div className="border-t border-border pt-8 mt-8 text-center text-sm text-muted-foreground">© 2025 w0vz course. Все права защищены.</div>
         </div>
       </footer>
+
+      <Dialog open={showAuthModal} onOpenChange={setShowAuthModal}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-center text-foreground">Добро пожаловать в CodeLearn</DialogTitle>
+            <DialogDescription className="text-center text-muted-foreground">
+              Войдите в аккаунт или создайте новый для доступа к курсам
+            </DialogDescription>
+          </DialogHeader>
+          
+          <Tabs defaultValue="login" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="login">Вход</TabsTrigger>
+              <TabsTrigger value="register">Регистрация</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="login" className="space-y-4 mt-6">
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-foreground">Email</Label>
+                <Input 
+                  id="email" 
+                  type="email" 
+                  placeholder="your@email.com"
+                  className="w-full"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-foreground">Пароль</Label>
+                <Input 
+                  id="password" 
+                  type="password" 
+                  placeholder="••••••••"
+                  className="w-full"
+                />
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <label className="flex items-center space-x-2 text-muted-foreground">
+                  <input type="checkbox" className="rounded border-border" />
+                  <span>Запомнить меня</span>
+                </label>
+                <Button variant="link" className="p-0 h-auto text-primary hover:text-primary/80">
+                  Забыли пароль?
+                </Button>
+              </div>
+              <Button className="w-full" onClick={() => setShowAuthModal(false)}>
+                <Icon name="LogIn" size={16} className="mr-2" />
+                Войти
+              </Button>
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-border" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">или</span>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <Button variant="outline" className="w-full">
+                  <Icon name="Github" size={16} className="mr-2" />
+                  GitHub
+                </Button>
+                <Button variant="outline" className="w-full">
+                  <Icon name="Mail" size={16} className="mr-2" />
+                  Google
+                </Button>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="register" className="space-y-4 mt-6">
+              <div className="space-y-2">
+                <Label htmlFor="reg-name" className="text-foreground">Имя</Label>
+                <Input 
+                  id="reg-name" 
+                  type="text" 
+                  placeholder="Ваше имя"
+                  className="w-full"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="reg-email" className="text-foreground">Email</Label>
+                <Input 
+                  id="reg-email" 
+                  type="email" 
+                  placeholder="your@email.com"
+                  className="w-full"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="reg-password" className="text-foreground">Пароль</Label>
+                <Input 
+                  id="reg-password" 
+                  type="password" 
+                  placeholder="••••••••"
+                  className="w-full"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="reg-confirm" className="text-foreground">Подтвердите пароль</Label>
+                <Input 
+                  id="reg-confirm" 
+                  type="password" 
+                  placeholder="••••••••"
+                  className="w-full"
+                />
+              </div>
+              <div className="flex items-start space-x-2 text-sm">
+                <input type="checkbox" className="rounded border-border mt-0.5" />
+                <span className="text-muted-foreground">
+                  Я согласен с{' '}
+                  <Button variant="link" className="p-0 h-auto text-primary hover:text-primary/80">
+                    условиями использования
+                  </Button>
+                  {' '}и{' '}
+                  <Button variant="link" className="p-0 h-auto text-primary hover:text-primary/80">
+                    политикой конфиденциальности
+                  </Button>
+                </span>
+              </div>
+              <Button className="w-full" onClick={() => setShowAuthModal(false)}>
+                <Icon name="UserPlus" size={16} className="mr-2" />
+                Создать аккаунт
+              </Button>
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-border" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">или</span>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <Button variant="outline" className="w-full">
+                  <Icon name="Github" size={16} className="mr-2" />
+                  GitHub
+                </Button>
+                <Button variant="outline" className="w-full">
+                  <Icon name="Mail" size={16} className="mr-2" />
+                  Google
+                </Button>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
