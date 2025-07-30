@@ -483,7 +483,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-8">
-              <h1 className="text-xl font-semibold text-foreground">CodeLearn</h1>
+              <h1 className="text-xl font-semibold text-foreground">w0vz course</h1>
               <div className="hidden md:flex space-x-6">
                 <Button variant="ghost" className="text-primary">
                   Главная
@@ -609,7 +609,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
-              <h3 className="text-lg font-semibold text-foreground mb-4">CodeLearn</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-4">w0vz course</h3>
               <p className="text-muted-foreground mb-4">
                 Платформа для изучения программирования с практическими проектами и поддержкой экспертов.
               </p>
@@ -644,9 +644,7 @@ const Index = () => {
               </ul>
             </div>
           </div>
-          <div className="border-t border-border pt-8 mt-8 text-center text-sm text-muted-foreground">
-            © 2024 CodeLearn. Все права защищены.
-          </div>
+          <div className="border-t border-border pt-8 mt-8 text-center text-sm text-muted-foreground">© 2025 w0vz course. Все права защищены.</div>
         </div>
       </footer>
     </div>
