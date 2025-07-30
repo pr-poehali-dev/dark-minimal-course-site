@@ -89,6 +89,7 @@ const Index = () => {
   const [filter, setFilter] = useState('');
   const [languageFilter, setLanguageFilter] = useState('');
   const [showContacts, setShowContacts] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   const languages = ['Все', 'JavaScript', 'React', 'Python', 'Node.js'];
   
@@ -191,6 +192,191 @@ const Index = () => {
                   >
                     <Icon name="MessageCircle" size={16} className="mr-2" />
                     Написать в Telegram
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (showProfile) {
+    return (
+      <div className="min-h-screen bg-background dark">
+        <nav className="border-b border-border bg-card">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center space-x-8">
+                <h1 className="text-xl font-semibold text-foreground">CodeLearn</h1>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setShowProfile(false)}
+                  className="text-primary hover:text-primary/80"
+                >
+                  <Icon name="ArrowLeft" size={16} className="mr-2" />
+                  Назад
+                </Button>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="mb-8">
+            <Card className="border-border">
+              <CardContent className="pt-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
+                  <div className="relative">
+                    <div className="w-24 h-24 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center">
+                      <Icon name="User" size={40} className="text-primary-foreground" />
+                    </div>
+                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-background"></div>
+                  </div>
+                  
+                  <div className="flex-1 text-center sm:text-left">
+                    <h1 className="text-2xl font-bold text-foreground mb-2">w0vz</h1>
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4 mb-4">
+                      <Badge variant="secondary" className="text-sm">
+                        <Icon name="Code" size={14} className="mr-1" />
+                        Разработчик
+                      </Badge>
+                      <span className="text-muted-foreground text-sm flex items-center">
+                        <Icon name="Calendar" size={14} className="mr-1" />
+                        В CodeLearn с декабря 2023
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground">
+                      Увлеченный разработчик, создающий современные веб-приложения. 
+                      Специализируюсь на React, TypeScript и Node.js.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <Card className="text-center">
+              <CardContent className="pt-6">
+                <div className="text-3xl font-bold text-primary mb-2">12</div>
+                <p className="text-muted-foreground">Пройдено курсов</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center">
+              <CardContent className="pt-6">
+                <div className="text-3xl font-bold text-primary mb-2">156</div>
+                <p className="text-muted-foreground">Часов обучения</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center">
+              <CardContent className="pt-6">
+                <div className="text-3xl font-bold text-primary mb-2">94%</div>
+                <p className="text-muted-foreground">Средний прогресс</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Icon name="Trophy" size={20} className="mr-2 text-primary" />
+                  Достижения
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center space-x-3 p-3 bg-accent/50 rounded-lg">
+                  <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
+                    <Icon name="Star" size={20} className="text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-foreground">Первый курс</h4>
+                    <p className="text-sm text-muted-foreground">Завершили первый курс</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-3 p-3 bg-accent/50 rounded-lg">
+                  <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                    <Icon name="Code2" size={20} className="text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-foreground">JavaScript Master</h4>
+                    <p className="text-sm text-muted-foreground">Завершили все курсы по JavaScript</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-3 p-3 bg-accent/50 rounded-lg">
+                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                    <Icon name="Zap" size={20} className="text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-foreground">Быстрый ученик</h4>
+                    <p className="text-sm text-muted-foreground">Завершили курс за рекордное время</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Icon name="BookOpen" size={20} className="mr-2 text-primary" />
+                  Текущие курсы
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="border border-border rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-medium text-foreground">Node.js Backend</h4>
+                    <Badge variant="outline" className="text-xs">В процессе</Badge>
+                  </div>
+                  <div className="w-full bg-muted rounded-full h-2 mb-2">
+                    <div className="bg-primary h-2 rounded-full" style={{width: '65%'}}></div>
+                  </div>
+                  <div className="flex justify-between text-sm text-muted-foreground">
+                    <span>65% завершено</span>
+                    <span>26/40 уроков</span>
+                  </div>
+                </div>
+                
+                <div className="border border-border rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-medium text-foreground">React.js разработка</h4>
+                    <Badge variant="outline" className="text-xs bg-green-500/10 text-green-600 border-green-500/20">Завершен</Badge>
+                  </div>
+                  <div className="w-full bg-muted rounded-full h-2 mb-2">
+                    <div className="bg-green-500 h-2 rounded-full" style={{width: '100%'}}></div>
+                  </div>
+                  <div className="flex justify-between text-sm text-muted-foreground">
+                    <span>100% завершено</span>
+                    <span>32/32 урока</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-8">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Icon name="Settings" size={20} className="mr-2 text-primary" />
+                  Настройки профиля
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <Button variant="outline" className="w-full sm:w-auto">
+                    <Icon name="Edit" size={16} className="mr-2" />
+                    Редактировать профиль
+                  </Button>
+                  <Button variant="outline" className="w-full sm:w-auto ml-0 sm:ml-4">
+                    <Icon name="Bell" size={16} className="mr-2" />
+                    Настройки уведомлений
                   </Button>
                 </div>
               </CardContent>
@@ -309,7 +495,11 @@ const Index = () => {
                 >
                   Контакты
                 </Button>
-                <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                <Button 
+                  variant="ghost" 
+                  className="text-muted-foreground hover:text-foreground"
+                  onClick={() => setShowProfile(true)}
+                >
                   Профиль
                 </Button>
               </div>
@@ -364,8 +554,8 @@ const Index = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredCourses.map((course) => (
-            <Card key={course.id} className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-border hover:border-primary/50">
-              <CardHeader className="pb-3">
+            <Card key={course.id} className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-border hover:border-primary/50 flex flex-col">
+              <CardHeader className="pb-3 flex-shrink-0">
                 <div className="flex items-center justify-between mb-3">
                   <Icon name={course.icon} size={28} className="text-primary" />
                   <Badge variant="outline" className="text-xs">
@@ -375,11 +565,11 @@ const Index = () => {
                 <CardTitle className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                   {course.title}
                 </CardTitle>
-                <CardDescription className="text-sm text-muted-foreground line-clamp-2">
+                <CardDescription className="text-sm text-muted-foreground line-clamp-2 min-h-[40px]">
                   {course.description}
                 </CardDescription>
               </CardHeader>
-              <CardContent className="pt-0">
+              <CardContent className="pt-0 flex-grow flex flex-col justify-end">
                 <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
                   <span className="flex items-center">
                     <Icon name="Clock" size={14} className="mr-1" />
@@ -391,7 +581,7 @@ const Index = () => {
                   </span>
                 </div>
                 <Button 
-                  className="w-full h-10 group-hover:bg-primary group-hover:text-primary-foreground transition-all"
+                  className="w-full h-10 group-hover:bg-primary group-hover:text-primary-foreground transition-all mt-auto"
                   variant="outline"
                   onClick={() => setSelectedCourse(course)}
                 >
