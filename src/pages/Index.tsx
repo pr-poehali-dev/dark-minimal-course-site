@@ -88,6 +88,7 @@ const Index = () => {
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [filter, setFilter] = useState('');
   const [languageFilter, setLanguageFilter] = useState('');
+  const [showContacts, setShowContacts] = useState(false);
 
   const languages = ['Все', 'JavaScript', 'React', 'Python', 'Node.js'];
   
@@ -97,6 +98,108 @@ const Index = () => {
     const matchesLanguage = !languageFilter || languageFilter === 'Все' || course.language === languageFilter;
     return matchesSearch && matchesLanguage;
   });
+
+  if (showContacts) {
+    return (
+      <div className="min-h-screen bg-background dark">
+        <nav className="border-b border-border bg-card">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center space-x-8">
+                <h1 className="text-xl font-semibold text-foreground">CodeLearn</h1>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setShowContacts(false)}
+                  className="text-primary hover:text-primary/80"
+                >
+                  <Icon name="ArrowLeft" size={16} className="mr-2" />
+                  Назад
+                </Button>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-foreground mb-4">Контакты</h1>
+            <p className="text-xl text-muted-foreground">
+              Свяжитесь со мной для вопросов и предложений
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center text-foreground">
+                  <Icon name="MessageCircle" size={24} className="mr-3 text-primary" />
+                  Telegram
+                </CardTitle>
+                <CardDescription>
+                  Быстрый способ связи для вопросов и обратной связи
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => window.open('https://t.me/w0vz', '_blank')}
+                >
+                  <Icon name="Send" size={16} className="mr-2" />
+                  @w0vz
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center text-foreground">
+                  <Icon name="Github" size={24} className="mr-3 text-primary" />
+                  GitHub
+                </CardTitle>
+                <CardDescription>
+                  Посмотрите мои проекты и исходный код
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => window.open('https://github.com/w0vz', '_blank')}
+                >
+                  <Icon name="ExternalLink" size={16} className="mr-2" />
+                  github.com/w0vz
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-12 text-center">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-foreground">Есть вопросы?</CardTitle>
+                <CardDescription>
+                  Не стесняйтесь обращаться по любым вопросам о курсах, 
+                  техническим проблемам или предложениям по улучшению платформы.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex justify-center space-x-4">
+                  <Button 
+                    onClick={() => window.open('https://t.me/w0vz', '_blank')}
+                    className="flex items-center"
+                  >
+                    <Icon name="MessageCircle" size={16} className="mr-2" />
+                    Написать в Telegram
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (selectedCourse) {
     return (
@@ -199,7 +302,11 @@ const Index = () => {
                 <Button variant="ghost" className="text-primary">
                   Главная
                 </Button>
-                <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                <Button 
+                  variant="ghost" 
+                  className="text-muted-foreground hover:text-foreground"
+                  onClick={() => setShowContacts(true)}
+                >
                   Контакты
                 </Button>
                 <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
