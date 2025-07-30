@@ -129,20 +129,20 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-lg transition-shadow h-fit">
               <CardHeader>
                 <CardTitle className="flex items-center text-foreground">
                   <Icon name="MessageCircle" size={24} className="mr-3 text-primary" />
                   Telegram
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="min-h-[40px]">
                   Быстрый способ связи для вопросов и обратной связи
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-0">
                 <Button 
                   variant="outline" 
-                  className="w-full"
+                  className="w-full h-10"
                   onClick={() => window.open('https://t.me/w0vz', '_blank')}
                 >
                   <Icon name="Send" size={16} className="mr-2" />
@@ -151,20 +151,20 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-lg transition-shadow h-fit">
               <CardHeader>
                 <CardTitle className="flex items-center text-foreground">
                   <Icon name="Github" size={24} className="mr-3 text-primary" />
                   GitHub
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="min-h-[40px]">
                   Посмотрите мои проекты и исходный код
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-0">
                 <Button 
                   variant="outline" 
-                  className="w-full"
+                  className="w-full h-10"
                   onClick={() => window.open('https://github.com/w0vz', '_blank')}
                 >
                   <Icon name="ExternalLink" size={16} className="mr-2" />
@@ -347,9 +347,13 @@ const Index = () => {
               {languages.map((lang) => (
                 <Button
                   key={lang}
-                  variant={languageFilter === lang ? "default" : "outline"}
+                  variant={languageFilter === lang || (lang === 'Все' && !languageFilter) ? "default" : "ghost"}
                   size="sm"
                   onClick={() => setLanguageFilter(lang === 'Все' ? '' : lang)}
+                  className={languageFilter === lang || (lang === 'Все' && !languageFilter) 
+                    ? "" 
+                    : "border border-muted-foreground/20 hover:border-muted-foreground/40 text-muted-foreground hover:text-foreground"
+                  }
                 >
                   {lang}
                 </Button>
@@ -387,7 +391,7 @@ const Index = () => {
                   </span>
                 </div>
                 <Button 
-                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-all"
+                  className="w-full h-10 group-hover:bg-primary group-hover:text-primary-foreground transition-all"
                   variant="outline"
                   onClick={() => setSelectedCourse(course)}
                 >
