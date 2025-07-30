@@ -1,12 +1,350 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import Icon from '@/components/ui/icon';
+
+interface Course {
+  id: number;
+  title: string;
+  description: string;
+  language: string;
+  icon: string;
+  level: 'Начинающий' | 'Средний' | 'Продвинутый';
+  duration: string;
+  lessonsCount: number;
+  materials?: {
+    title: string;
+    type: 'video' | 'text' | 'practice';
+    duration?: string;
+  }[];
+}
+
+const courses: Course[] = [
+  {
+    id: 1,
+    title: 'JavaScript для начинающих',
+    description: 'Изучите основы JavaScript с нуля. Переменные, функции, объекты и многое другое.',
+    language: 'JavaScript',
+    icon: 'Code2',
+    level: 'Начинающий',
+    duration: '6 недель',
+    lessonsCount: 24,
+    materials: [
+      { title: 'Введение в JavaScript', type: 'video', duration: '15 мин' },
+      { title: 'Переменные и типы данных', type: 'video', duration: '22 мин' },
+      { title: 'Практика: Создание калькулятора', type: 'practice', duration: '45 мин' },
+    ]
+  },
+  {
+    id: 2,
+    title: 'React.js разработка',
+    description: 'Современная библиотека для создания пользовательских интерфейсов.',
+    language: 'React',
+    icon: 'Component',
+    level: 'Средний',
+    duration: '8 недель',
+    lessonsCount: 32,
+    materials: [
+      { title: 'Компоненты и JSX', type: 'video', duration: '28 мин' },
+      { title: 'Хуки и состояние', type: 'video', duration: '35 мин' },
+      { title: 'Создание Todo приложения', type: 'practice', duration: '60 мин' },
+    ]
+  },
+  {
+    id: 3,
+    title: 'Python основы',
+    description: 'Универсальный язык программирования для автоматизации и анализа данных.',
+    language: 'Python',
+    icon: 'FileCode',
+    level: 'Начинающий',
+    duration: '5 недель',
+    lessonsCount: 20,
+    materials: [
+      { title: 'Синтаксис Python', type: 'video', duration: '20 мин' },
+      { title: 'Работа с данными', type: 'text' },
+      { title: 'Создание веб-скрапера', type: 'practice', duration: '50 мин' },
+    ]
+  },
+  {
+    id: 4,
+    title: 'Node.js Backend',
+    description: 'Серверная разработка на JavaScript. API, базы данных, аутентификация.',
+    language: 'Node.js',
+    icon: 'Server',
+    level: 'Продвинутый',
+    duration: '10 недель',
+    lessonsCount: 40,
+    materials: [
+      { title: 'Express.js фреймворк', type: 'video', duration: '30 мин' },
+      { title: 'Работа с MongoDB', type: 'video', duration: '40 мин' },
+      { title: 'REST API проект', type: 'practice', duration: '90 мин' },
+    ]
+  }
+];
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [filter, setFilter] = useState('');
+  const [languageFilter, setLanguageFilter] = useState('');
+
+  const languages = ['Все', 'JavaScript', 'React', 'Python', 'Node.js'];
+  
+  const filteredCourses = courses.filter(course => {
+    const matchesSearch = course.title.toLowerCase().includes(filter.toLowerCase()) ||
+                         course.description.toLowerCase().includes(filter.toLowerCase());
+    const matchesLanguage = !languageFilter || languageFilter === 'Все' || course.language === languageFilter;
+    return matchesSearch && matchesLanguage;
+  });
+
+  if (selectedCourse) {
+    return (
+      <div className="min-h-screen bg-background dark">
+        <nav className="border-b border-border bg-card">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <div className="flex items-center space-x-8">
+                <h1 className="text-xl font-semibold text-foreground">CodeLearn</h1>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setSelectedCourse(null)}
+                  className="text-primary hover:text-primary/80"
+                >
+                  <Icon name="ArrowLeft" size={16} className="mr-2" />
+                  Назад к курсам
+                </Button>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="mb-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <Icon name={selectedCourse.icon} size={32} className="text-primary" />
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">{selectedCourse.title}</h1>
+                <p className="text-muted-foreground">{selectedCourse.language}</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-4 mb-6">
+              <Badge variant="secondary">{selectedCourse.level}</Badge>
+              <span className="text-sm text-muted-foreground flex items-center">
+                <Icon name="Clock" size={16} className="mr-1" />
+                {selectedCourse.duration}
+              </span>
+              <span className="text-sm text-muted-foreground flex items-center">
+                <Icon name="BookOpen" size={16} className="mr-1" />
+                {selectedCourse.lessonsCount} уроков
+              </span>
+            </div>
+            
+            <p className="text-foreground text-lg leading-relaxed mb-8">{selectedCourse.description}</p>
+          </div>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Icon name="PlayCircle" size={24} className="mr-2 text-primary" />
+                Материалы курса
+              </CardTitle>
+              <CardDescription>
+                Изучайте в удобном темпе с нашими интерактивными материалами
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {selectedCourse.materials?.map((material, index) => (
+                <div key={index} className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-accent/50 transition-colors cursor-pointer">
+                  <div className="flex items-center space-x-3">
+                    <Icon 
+                      name={material.type === 'video' ? 'Play' : material.type === 'practice' ? 'Code' : 'FileText'} 
+                      size={20} 
+                      className="text-primary" 
+                    />
+                    <div>
+                      <h4 className="font-medium text-foreground">{material.title}</h4>
+                      <p className="text-sm text-muted-foreground capitalize">
+                        {material.type === 'video' ? 'Видео' : material.type === 'practice' ? 'Практика' : 'Текст'}
+                        {material.duration && ` • ${material.duration}`}
+                      </p>
+                    </div>
+                  </div>
+                  <Icon name="ChevronRight" size={16} className="text-muted-foreground" />
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+
+          <div className="mt-8">
+            <Button size="lg" className="w-full sm:w-auto">
+              <Icon name="Play" size={20} className="mr-2" />
+              Начать курс
+            </Button>
+          </div>
+        </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background dark">
+      <nav className="border-b border-border bg-card">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-8">
+              <h1 className="text-xl font-semibold text-foreground">CodeLearn</h1>
+              <div className="hidden md:flex space-x-6">
+                <Button variant="ghost" className="text-primary">
+                  Главная
+                </Button>
+                <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                  Контакты
+                </Button>
+                <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                  Профиль
+                </Button>
+              </div>
+            </div>
+            <Button className="hidden sm:flex">
+              <Icon name="User" size={16} className="mr-2" />
+              Войти
+            </Button>
+          </div>
+        </div>
+      </nav>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Изучайте программирование
+            <span className="text-primary block">с экспертами</span>
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Практические курсы от ведущих разработчиков. Получите реальные навыки для карьеры в IT.
+          </p>
+        </div>
+
+        <div className="mb-8">
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="flex-1">
+              <Input
+                placeholder="Поиск курсов..."
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                className="w-full"
+              />
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              {languages.map((lang) => (
+                <Button
+                  key={lang}
+                  variant={languageFilter === lang ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setLanguageFilter(lang === 'Все' ? '' : lang)}
+                >
+                  {lang}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredCourses.map((course) => (
+            <Card key={course.id} className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-border hover:border-primary/50">
+              <CardHeader className="pb-3">
+                <div className="flex items-center justify-between mb-3">
+                  <Icon name={course.icon} size={28} className="text-primary" />
+                  <Badge variant="outline" className="text-xs">
+                    {course.level}
+                  </Badge>
+                </div>
+                <CardTitle className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                  {course.title}
+                </CardTitle>
+                <CardDescription className="text-sm text-muted-foreground line-clamp-2">
+                  {course.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
+                  <span className="flex items-center">
+                    <Icon name="Clock" size={14} className="mr-1" />
+                    {course.duration}
+                  </span>
+                  <span className="flex items-center">
+                    <Icon name="BookOpen" size={14} className="mr-1" />
+                    {course.lessonsCount} уроков
+                  </span>
+                </div>
+                <Button 
+                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-all"
+                  variant="outline"
+                  onClick={() => setSelectedCourse(course)}
+                >
+                  Подробнее
+                  <Icon name="ArrowRight" size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {filteredCourses.length === 0 && (
+          <div className="text-center py-12">
+            <Icon name="Search" size={48} className="mx-auto text-muted-foreground mb-4" />
+            <h3 className="text-lg font-medium text-foreground mb-2">Курсы не найдены</h3>
+            <p className="text-muted-foreground">Попробуйте изменить критерии поиска</p>
+          </div>
+        )}
+      </div>
+
+      <footer className="bg-card border-t border-border mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="col-span-1 md:col-span-2">
+              <h3 className="text-lg font-semibold text-foreground mb-4">CodeLearn</h3>
+              <p className="text-muted-foreground mb-4">
+                Платформа для изучения программирования с практическими проектами и поддержкой экспертов.
+              </p>
+              <div className="flex space-x-4">
+                <Button variant="ghost" size="sm">
+                  <Icon name="Github" size={16} />
+                </Button>
+                <Button variant="ghost" size="sm">
+                  <Icon name="Twitter" size={16} />
+                </Button>
+                <Button variant="ghost" size="sm">
+                  <Icon name="Mail" size={16} />
+                </Button>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-medium text-foreground mb-4">Курсы</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>JavaScript</li>
+                <li>React</li>
+                <li>Python</li>
+                <li>Node.js</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-foreground mb-4">Поддержка</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>Документация</li>
+                <li>Сообщество</li>
+                <li>Контакты</li>
+                <li>FAQ</li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-border pt-8 mt-8 text-center text-sm text-muted-foreground">
+            © 2024 CodeLearn. Все права защищены.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
