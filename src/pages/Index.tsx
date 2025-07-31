@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
+import { Link } from 'react-router-dom';
 
 interface Course {
   id: number;
@@ -487,34 +488,40 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-8">
-              <h1 className="text-xl font-semibold text-foreground">w0vz course</h1>
+              <Link to="/" className="text-xl font-semibold text-foreground">w0vz course</Link>
               <div className="hidden md:flex space-x-6">
-                <Button variant="ghost" className="text-primary">
-                  Главная
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  className="text-muted-foreground hover:text-foreground"
-                  onClick={() => setShowContacts(true)}
-                >
-                  Контакты
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  className="text-muted-foreground hover:text-foreground"
-                  onClick={() => setShowProfile(true)}
-                >
-                  Профиль
-                </Button>
+                <Link to="/">
+                  <Button variant="ghost" className="text-primary">
+                    Главная
+                  </Button>
+                </Link>
+                <Link to="/course">
+                  <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                    Курсы
+                  </Button>
+                </Link>
+                <Link to="/contacts">
+                  <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                    Контакты
+                  </Button>
+                </Link>
               </div>
             </div>
-            <Button 
-              className="hidden sm:flex"
-              onClick={() => setShowAuthModal(true)}
-            >
-              <Icon name="User" size={16} className="mr-2" />
-              Войти
-            </Button>
+            <div className="flex items-center space-x-4">
+              <Link to="/profile">
+                <Button variant="outline" className="hidden sm:flex">
+                  <Icon name="User" size={16} className="mr-2" />
+                  Профиль
+                </Button>
+              </Link>
+              <Button 
+                className="hidden sm:flex"
+                onClick={() => setShowAuthModal(true)}
+              >
+                <Icon name="LogIn" size={16} className="mr-2" />
+                Войти
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
